@@ -14,15 +14,19 @@ import java.time.Duration;
 
 @Test
 public class Selenium {
+    //Тест№1
    public static void test1() {
-        System.setProperty("webdriver.chrome.driver", "c:\\drivers\\chromedriver.exe");
+       //Устанавливаем путь к драйверу и инициализируем его
+       System.setProperty("webdriver.chrome.driver", "c:\\drivers\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
 
         try {
+            //Переход к необходимому ресурсу
             driver.get("https://testsheepnz.github.io/BasicCalculator.html");
             Thread.sleep(2000);
 
+            //Ищем элементы по локаторам
             WebElement memo1 = driver.findElement(By.xpath("//input[@name='number1']"));
             WebElement memo2 = driver.findElement(By.xpath("//input[@name='number2']"));
             WebElement drop = driver.findElement(By.xpath("//select[@name='selectOperation']"));
@@ -32,18 +36,18 @@ public class Selenium {
             Actions actions = new Actions(driver);
             JavascriptExecutor js = ((JavascriptExecutor) driver);
             Select select = new Select(drop);
-            js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+            js.executeScript("window.scrollTo(0, document.body.scrollHeight)");//скрипт скроллинга
 
             actions
-                    .click(memo1)
-                    .pause(500)
-                    .sendKeys(memo1, "2")
+                    .click(memo1) //Нажатие на элемент
+                    .pause(500)  //пауза между выполнениями действий
+                    .sendKeys(memo1, "2") //ввод значений в поле ввода
                     .click(memo2)
                     .pause(500)
                     .sendKeys(memo2, "3")
                     .click(drop)
                     .build().perform();
-            select.selectByVisibleText("Subtract");
+            select.selectByVisibleText("Subtract"); //выбор необходимого значения
             actions
                     .click(drop)
                     .pause(1000)
@@ -54,10 +58,10 @@ public class Selenium {
                     .build().perform();
 
             String ans;
-            ans = answer.getAttribute("value");
+            ans = answer.getAttribute("value");  //задаем переменную, в которую помещаем значение текстового поля
 
 
-            Assert.assertEquals(ans, "-1");
+            Assert.assertEquals(ans, "-1"); //проверяем соответствует ли фактическое значение правильному
             System.out.println("Result is correct");
 
 
@@ -69,6 +73,8 @@ public class Selenium {
             driver.quit();
         }
     }
+
+    //Тест№2
     public static void test2(){
         System.setProperty("webdriver.chrome.driver", "c:\\drivers\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
@@ -128,11 +134,11 @@ public class Selenium {
             driver.quit();
         }
     }
+
+    //Тест №3
     public static void test3(){
         System.setProperty("webdriver.chrome.driver", "c:\\drivers\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
-
-
 
 
          try {
@@ -140,7 +146,6 @@ public class Selenium {
              Thread.sleep(2000);
              JavascriptExecutor js = ((JavascriptExecutor) driver);
              Actions actions = new Actions(driver);
-             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 
              WebElement drop = driver.findElement(By.xpath("//select[@name='buildNumber']"));
@@ -152,7 +157,6 @@ public class Selenium {
              select.selectByVisibleText("Demo");
              button.click();
              Thread.sleep(2000);
-             //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//form[@class='form-horizontal']")));
              js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 
              driver.findElement(By.xpath("//input[@name='numberGuess']")).click();
