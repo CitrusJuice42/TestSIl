@@ -8,20 +8,26 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 
 @Test
-public class Selenium {
+public class SeleniumTest {
+    WebDriver driver;
+
+    @BeforeTest
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "D:\\Dowloads\\chromedriver_win32\\chromedriver.exe");
+        driver = new ChromeDriver();
+    }
+
     //Тест№1
-   public static void test1() {
+    @Test
+   public void TestOne() throws InterruptedException {
        //Устанавливаем путь к драйверу и инициализируем его
-       System.setProperty("webdriver.chrome.driver", "c:\\drivers\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-
-
-        try {
             //Переход к необходимому ресурсу
             driver.get("https://testsheepnz.github.io/BasicCalculator.html");
             Thread.sleep(2000);
@@ -63,23 +69,11 @@ public class Selenium {
 
             Assert.assertEquals(ans, "-1"); //проверяем соответствует ли фактическое значение правильному
             System.out.println("Result is correct");
-
-
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            driver.quit();
-        }
     }
 
     //Тест№2
-    public static void test2(){
-        System.setProperty("webdriver.chrome.driver", "c:\\drivers\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-
-        try {
+    @Test
+    public void testTwo() throws InterruptedException {
             driver.get("https://testsheepnz.github.io/BasicCalculator.html");
             Thread.sleep(2000);
 
@@ -124,24 +118,11 @@ public class Selenium {
             Assert.assertEquals(ans, "gsbu");
             System.out.println("Result is correct");
             Thread.sleep(2000);
-
-
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            driver.quit();
-        }
     }
 
     //Тест №3
-    public static void test3(){
-        System.setProperty("webdriver.chrome.driver", "c:\\drivers\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-
-
-         try {
+    @Test
+    public void testThree() throws InterruptedException {
              driver.get("https://testsheepnz.github.io/random-number.html");
              Thread.sleep(2000);
              JavascriptExecutor js = ((JavascriptExecutor) driver);
@@ -171,18 +152,10 @@ public class Selenium {
              Assert.assertEquals(ans, "string: Not a number!");
              System.out.println("Result is correct");
              Thread.sleep(2000);
+    }
 
-
-
-
-         } catch (InterruptedException e) {
-             e.printStackTrace();
-         } finally {
-             driver.quit();
-         }
-
-
-
-
+    @AfterTest
+    public void closeDriver() {
+        driver.close();
     }
 }
